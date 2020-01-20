@@ -30,3 +30,15 @@ $(function () {
 
 // link jquery
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+
+// resource
+
+https://jqueryui.com/autocomplete/
+
+// height issue
+
+https://stackoverflow.com/questions/9590313/how-to-use-the-scroll-and-max-options-in-autocomplete
