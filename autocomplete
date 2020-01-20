@@ -1,0 +1,30 @@
+// link style
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+// link jquery
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+// example java script
+
+$(function () {
+            $( "#customerAutoComplete" ).autocomplete({
+                source: $('#hhost').val() + "/admin/get_customer_data", // get from controller datatype: json 
+                minLength: 2,
+                focus: function( event, ui ) {
+                    $( "#customerAutoComplete" ).val( ui.item.label ); // get key => lable 
+                    return false;
+                },
+                select: function( event, ui ) {
+                    $( "#customerAutoComplete" ).val( ui.item.label );
+                    $( "#hxtcustomerId" ).val( ui.item.value ); // get key => value 
+                    return false;
+                }
+            });
+
+        })
+        
+        
+// example html 
+
+<input type="text" class="form-control mb-1" name="country" id="customerAutoComplete" placeholder="select customer" />
+<input type="hidden" id="hxtcustomerId"  />
