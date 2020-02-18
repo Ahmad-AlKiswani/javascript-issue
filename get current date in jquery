@@ -1,0 +1,13 @@
+// source
+
+https://stackoverflow.com/questions/8398897/how-to-get-current-date-in-jquery
+
+
+var d = new Date();
+
+var month = d.getMonth()+1;
+var day = d.getDate();
+
+var output = d.getFullYear() + '/' +
+    (month<10 ? '0' : '') + month + '/' +
+    (day<10 ? '0' : '') + day;
