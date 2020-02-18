@@ -1,0 +1,15 @@
+// source
+
+
+https://stackoverflow.com/questions/3596089/how-to-remove-specific-value-from-array-using-jquery
+
+
+var y = [1, 2, 2, 3, 2]
+var removeItem = 2;
+
+y = jQuery.grep(y, function(value) {
+  return value != removeItem;
+});
+
+Result:
+[1, 3]
