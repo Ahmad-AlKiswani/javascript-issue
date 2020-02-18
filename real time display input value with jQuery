@@ -1,0 +1,13 @@
+
+// source
+https://stackoverflow.com/questions/1403776/how-to-real-time-display-input-value-with-jquery
+
+$("#input-id").on("change keyup paste click", function(){
+    dosomething();
+})
+
+// or
+
+$('#name').keyup(function () {
+  $('#display').text($(this).val());
+});
