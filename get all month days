@@ -1,0 +1,32 @@
+//source
+
+https://stackoverflow.com/questions/51912401/get-array-of-dates-for-current-month-in-jquery/51912565
+
+// Display all dates (in numbers) in current month
+https://stackoverflow.com/questions/47919308/jquery-display-all-dates-in-numbers-in-current-month
+
+function DrawMonth(){
+            var weekday = ["Sun","Mon","Tues","Wed","Thu","Fri","Sat"];
+            var date = new Date();
+            var month = date.getMonth()+1;
+            date.setDate(1);
+            var all_days = [];
+            var all_days_no = [];
+            while (date.getMonth()+1 == month) {
+                var d = date.getFullYear() + '-' + (date.getMonth()+1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0') + ' '+ weekday[date.getDay()];
+                var dNo = date.getDate().toString().padStart(2, '0') ;
+                all_days.push(d);
+                all_days_no.push(dNo);
+
+                date.setDate(date.getDate() + 1);
+                var columnHtml ='<tr>';
+                columnHtml +='<th>Room</th>';
+                for(i = 0; i < all_days.length; i++){
+                    columnHtml += '<th scope="row" id="day-' + all_days_no[i] +'">'+ all_days[i] +'</th>';
+                }
+                columnHtml += '</tr>';
+            }
+            TableLength=all_days_no.length;
+            $("#dayColumns").append(columnHtml);
+
+        }
