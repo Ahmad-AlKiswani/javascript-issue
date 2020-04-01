@@ -1,0 +1,111 @@
+// js 
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+//css
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"> 
+
+
+<table class="table table-bordered mb-0" id="invoicesTable">
+{{--                                                    <input type="checkbox" id="checkAll">--}}
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+
+                                                                   <input type="checkbox" id="checkAll">
+                                                                   <label for="input-1">Check All</label>
+
+                                                            </th>
+
+                                                            <th>{{trans('constants.booking_no')}}</th>
+                                                            <th>{{trans('constants.room')}}</th>
+                                                            <th>{{trans('constants.customer_name')}}</th>
+                                                            <th>{{trans('constants.checkIn')}} - {{trans('constants.checkOut')}}</th>
+                                                            <th>{{trans('constants.approvalTo')}} - {{trans('constants.approvalTo')}}</th>
+                                                            <th>{{trans('constants.net_total')}} (€)</th>
+                                                            <th>{{trans('constants.action')}}</th>
+{{--                                                            <th>Last Invoice Date</th>--}}
+{{--                                                            <th>Last Invoice No.</th>--}}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="invoices"></tbody>
+                                                </table>
+
+
+
+
+
+
+
+$( "#btnSearch" ).click(function() {
+                table.ajax.reload();
+            });
+
+            var table = $('#invoicesTable').DataTable({
+                dom: "lBfrtip",
+                paging: false,
+                //pageLength: 10,
+                "searching": false,
+                "ordering": false,
+                "info": false,
+                "lengthChange": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "sAjaxSource": "getBookingToInvoices",
+                "fnServerParams": function ( aoData ) {
+                    aoData.push( { "name": "search_date", "value":  $('#searchDate').val()  } );
+                },
+
+                columns: [
+                    { data: "checkbox"},
+                    { data: "id" },
+                    { data: "room" },
+                    { data: "customer_name" },
+                    { data: "check" },
+                    { data: "approval" },
+                    { data: "total" },
+
+                ],
+                "aoColumnDefs": [
+                    {
+                        "aTargets": [7], // Column to target
+                        "mRender": function ( data, type, full ) {
+                            // 'full' is the row's data object, and 'data' is this column's data
+                            // e.g. 'full[0]' is the comic id, and 'data' is the comic title
+                            return '<button type="button" class="btn btn-primary" onclick="generateAction( '+full["id"] +' ,'+full["room_id"] +', '+full["customer_master_id"] +' )"> <i class="fa fa-check-square-o"></i> Generate </button>';
+                        }
+                    },
+                    // {
+                    //     "aTargets": [ 0 ], // Column to target
+                    //     "mRender": function ( data, type, full ) {
+                    //         // 'full' is the row's data object, and 'data' is this column's data
+                    //         // e.g. 'full[0]' is the comic id, and 'data' is the comic title
+                    //         return '<input type="checkbox" id="" value="'+full["id"] +'">';
+                    //     }
+                    // }
+
+
+
+                ],
+                "fnRowCallback": function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    var  approval = aData['approval'].split("-");
+                    var startDay = new Date(approval[1]);
+                    var endDay = new Date();
+                    var millisecondsPerDay = 1000 * 60 * 60 * 24;
+                    var millisBetween = endDay.getTime() - startDay.getTime();
+                    var days = millisBetween / millisecondsPerDay;
+                    // Round down.
+                    // alert( Math.floor(days));
+                    var calDaysNo = Math.floor(days) ;
+                    calDaysNo = Math.abs(calDaysNo);
+
+                    if (calDaysNo <= 7 && calDaysNo > 3) {
+                        $('td', nRow).css('background-color', '#ffe0b3');
+                    } else if (calDaysNo <= 3) {
+                        $('td', nRow).css('background-color', '#ffb3b3');
+                    }
+                },
+                "language": {
+                    "search": "{{trans('constants.search')}}:"
+
+                }
+            });
