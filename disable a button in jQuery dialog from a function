@@ -1,0 +1,77 @@
+$(selector).dialog();
+$(selector).prop('disabled', true);
+
+// source 
+
+//https://www.geeksforgeeks.org/how-to-disable-a-button-in-jquery-dialog-from-a-function/
+
+// example
+
+<!DOCTYPE html> 
+<html lang="en"> 
+      
+<head> 
+    <meta charset="utf-8"> 
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1"> 
+      
+    <link rel="stylesheet" href= 
+"//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+      
+    <link rel="stylesheet" href= 
+"https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+  
+    <script src= 
+        "https://code.jquery.com/jquery-1.12.4.js"> 
+    </script> 
+      
+    <script src= 
+        "https://code.jquery.com/ui/1.12.1/jquery-ui.js"> 
+    </script> 
+      
+    <style> 
+        .ui-widget-header { 
+            background: green; 
+            color: #ffffff; 
+        } 
+          
+        #dialog { 
+            box-shadow: 1rem .5rem 1rem  
+                rgba(0, 0, 0, .15) !important; 
+                  
+            padding: 20px; 
+        } 
+    </style> 
+</head> 
+  
+<body> 
+    <div id="dialog" title="jQuery UI Basic dialog"> 
+          
+        <p> 
+            This is the default dialog which is useful 
+            for displaying information. The dialog 
+            window can be moved, resized and closed 
+            with the 'x' icon or use close button below, 
+            but it is diable using jQuery's prop(); 
+            method. 
+        </p> 
+          
+        <button type="button" class= 
+            "ui-button ui-widget" title="Close"> 
+            Close 
+        </button> 
+    </div> 
+      
+    <script> 
+        $(function() { 
+              
+            // Trigger dialog box 
+            $("#dialog").dialog(); 
+              
+            // attr() method applied here 
+            $(".ui-button").prop('disabled', true); 
+        }); 
+    </script> 
+</body> 
+  
+</html> 
